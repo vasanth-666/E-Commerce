@@ -8,8 +8,6 @@ import { BiLogOut } from 'react-icons/bi'
 const Sidebar = ({ token, setToken }) => {
     return (
         <div className='max-sm:flexCenter max-xs:pb-4 sm:w-1/4 sm:min-h-screen p-6'>
-
-            {/* Logout Button (Top Right) */}
             {token && (
                 <div className='absolute top-5 right-5'>
                     <button onClick={() => setToken('')} className='flex items-center gap-x-2 text-red-500 hover:text-red-600 transition-all font-medium'>
@@ -19,7 +17,7 @@ const Sidebar = ({ token, setToken }) => {
                 </div>
             )}
 
-<div className='flex max-sm:items-center sm:flex-col pt-6'>
+            <div className='flex max-sm:items-center sm:flex-col pt-6'>
                 <div className='flex sm:flex-col gap-x-6 gap-y-6 sm:pt-12'>
 
                     <NavLink to={'/'} className={({ isActive }) =>

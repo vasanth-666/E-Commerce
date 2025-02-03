@@ -5,7 +5,7 @@ const Contact = () => {
     <div className="max-padd-container py-16">
       <h2 className="text-center text-3xl font-semibold mb-8">Contact Us</h2>
       <div className="flex justify-center gap-16">
-        {/* Contact Info Section */}
+
         <div className="flex-1 bg-white shadow-lg p-6 rounded-xl">
           <h3 className="text-xl font-semibold mb-4">Our Office</h3>
           <p className="mb-4">123 shopping,salem,Tamilnadu</p>
@@ -17,7 +17,6 @@ const Contact = () => {
           <p>Saturday: 10:00 AM - 4:00 PM</p>
         </div>
 
-        {/* Contact Form Section */}
         <div className="flex-1 bg-white shadow-lg p-6 rounded-xl">
           <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
           <form>

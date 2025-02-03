@@ -44,7 +44,7 @@ const List = ({ token }) => {
       
       <div className='flex flex-col gap-3 pt-4'>
         {/* Table Header */}
-        <div className='hidden md:grid grid-cols-[1fr_3fr_1.5fr_1fr_1fr] items-center py-2 px-3 border-b text-secondary bg-gray-10 font-semibold text-lg rounded-t-lg'>
+        <div className='hidden md:grid grid-cols-[1fr_3fr_1.5fr_1fr_1fr] items-center py-3 px-4 border-b text-secondary bg-gray-10 font-semibold text-lg rounded-t-lg'>
           <h5>Image</h5>
           <h5>Name</h5>
           <h5>Category</h5>
@@ -52,16 +52,15 @@ const List = ({ token }) => {
           <h5>Remove</h5>
         </div>
 
-        {/* Product Rows */}
         {list.map((item) => (
           <div 
             key={item._id} 
-            className='grid grid-cols-[1.5fr_3fr_1.5fr] md:grid-cols-[1fr_3fr_1.5fr_1fr_1fr] items-center gap-3 p-2 bg-white shadow-md rounded-lg transition-all hover:shadow-lg'
+            className='grid grid-cols-[1.5fr_3fr_1.5fr] md:grid-cols-[1fr_3fr_1.5fr_1fr_1fr] items-center gap-4 p-3 bg-white shadow-lg rounded-lg hover:shadow-xl transition-all duration-200'
           >
-            <img src={item.image[0]} alt="" className='w-14 h-14 object-cover rounded-lg' />
+            <img src={item.image[0]} alt="" className='w-16 h-16 object-cover rounded-lg shadow-sm' />
             <h5 className='text-sm font-semibold truncate'>{item.name}</h5>
             <p className='text-sm font-semibold text-gray-500'>{item.category}</p>
-            <div className='text-sm font-semibold text-primary'>{currency}{item.price}</div>
+            <h5 className='text-sm font-semibold text-gray-500' >{currency}{item.price}</h5>
             <div>
               <TbTrash 
                 onClick={() => removeProduct(item._id)} 

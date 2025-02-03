@@ -26,7 +26,7 @@ const Orders = () => {
           })
         })
         setOrderData(allOrdersItem.reverse())
-        
+
       }
     } catch (error) {
       console.log(error);
@@ -34,9 +34,9 @@ const Orders = () => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     loadOrderData()
-  },[token])
+  }, [token])
 
   return (
     <section>

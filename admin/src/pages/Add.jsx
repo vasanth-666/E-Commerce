@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import upload_icon from '../assets/upload_icon.png';
+import upload_icon from '../assets/upload_icon.jpg';
 import axios from 'axios';
 import { backend_url } from '../App';
 import { toast } from 'react-toastify';
@@ -28,20 +28,17 @@ const Add = ({ token }) => {
       formData.append("price", price);
       formData.append("category", category);
       formData.append("subcategory", subcategory);
-      formData.append("popular", popular ? true : false);
+      formData.append("popular", popular);
       formData.append("sizes", JSON.stringify(sizes));
 
-      if (image1) formData.append("image1", image1);
-      if (image2) formData.append("image2", image2);
-      if (image3) formData.append("image3", image3);
-      if (image4) formData.append("image4", image4);
+      [image1, image2, image3, image4].forEach((img, index) => {
+        if (img) formData.append(`image${index + 1}`, img);
+      });
 
       const response = await axios.post(`${backend_url}/api/product/add`, formData, { headers: { token } });
 
       if (response.data.success) {
         toast.success(response.data.message);
-
-        // ✅ Reset form after submission
         setName("");
         setDescription("");
         setPrice("");
@@ -62,21 +59,21 @@ const Add = ({ token }) => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className='px-8 py-6'>
-      <div className='flex flex-col gap-y-4 text-lg font-medium'>
-        <h3 className='text-2xl text-secondary mb-4'>Upload Product Images</h3>
+    <div className="min-h-screen bg-primary flex items-center justify-center p-8">
+      <form onSubmit={onSubmitHandler} className="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl space-y-8 border border-gray-200">
+        <h3 className="text-3xl text-secondary font-bold text-center">Add New Product</h3>
 
-        <div className='flex gap-4'>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
           {[setImage1, setImage2, setImage3, setImage4].map((setImage, index) => (
-            <label key={index} htmlFor={`image${index + 1}`}>
+            <label key={index} htmlFor={`image${index + 1}`} className="w-full h-32 relative cursor-pointer overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-secondary transition-all">
               <img
                 src={
                   [image1, image2, image3, image4][index]
                     ? URL.createObjectURL([image1, image2, image3, image4][index])
                     : upload_icon
                 }
-                alt=""
-                className='w-20 h-20 object-cover rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all'
+                alt="Upload"
+                className="object-cover w-full h-full max-w-full max-h-full"
               />
               <input type="file" onChange={(e) => setImage(e.target.files[0])} id={`image${index + 1}`} hidden />
             </label>
@@ -84,66 +81,100 @@ const Add = ({ token }) => {
         </div>
 
         <div>
-          <h5 className='text-xl'>Product Name</h5>
-          <input type="text" onChange={(e) => setName(e.target.value)} value={name} placeholder='Product Name' className='input-field' />
-        </div>
-        <div>
-          <h5 className='text-xl'>Product Description</h5>
-          <textarea rows={5} onChange={(e) => setDescription(e.target.value)} value={description} placeholder='Product Description' className='input-field' />
+          <label className="block text-lg font-semibold text-tertiary">Product Name</label>
+          <input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            placeholder="Enter Product Name"
+            className="w-full px-4 py-3 mt-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-secondary"
+          />
         </div>
 
-        <div className='flex flex-col sm:flex-row gap-6'>
+        <div>
+          <label className="block text-lg font-semibold text-tertiary">Product Description</label>
+          <textarea
+            rows={4}
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+            placeholder="Enter Product Description"
+            className="w-full px-4 py-3 mt-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-secondary"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
-            <h5 className='text-xl'>Category</h5>
-            <select onChange={(e) => setCategory(e.target.value)} value={category} className='input-select'>
+            <label className="block text-lg font-semibold text-tertiary">Category</label>
+            <select
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
+              className="w-full px-4 py-3 mt-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-secondary"
+            >
               <option value="Men">Men</option>
               <option value="Women">Women</option>
               <option value="Kids">Kids</option>
             </select>
           </div>
+
           <div>
-            <h5 className='text-xl'>Sub Category</h5>
-            <select onChange={(e) => setSubCategory(e.target.value)} value={subcategory} className='input-select'>
+            <label className="block text-lg font-semibold text-tertiary">Subcategory</label>
+            <select
+              onChange={(e) => setSubCategory(e.target.value)}
+              value={subcategory}
+              className="w-full px-4 py-3 mt-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-secondary"
+            >
               <option value="Topwear">Topwear</option>
               <option value="Bottomwear">Bottomwear</option>
               <option value="Winterwear">Winterwear</option>
             </select>
           </div>
+
           <div>
-            <h5 className='text-xl'>Product Price</h5>
-            <input type="number" onChange={(e) => setPrice(e.target.value)} value={price} placeholder='Price' className='input-field' />
+            <label className="block text-lg font-semibold text-tertiary">Price ($)</label>
+            <input
+              type="number"
+              onChange={(e) => setPrice(e.target.value)}
+              value={price}
+              placeholder="Enter Price"
+              className="w-full px-4 py-3 mt-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-secondary"
+            />
           </div>
         </div>
 
         <div>
-          <h5 className='text-xl'>Product Sizes</h5>
-          <div className='flex gap-4 mt-2'>
-            {["S", "M", "L", "XL", "XXL"].map((size) => (
-              <div key={size} onClick={() => setSizes(prev => prev.includes(size) ? prev.filter(item => item !== size) : [...prev, size])}>
-                <span className={`${sizes.includes(size) ? "bg-tertiary text-white" : "bg-white"} text-gray-700 rounded-md ring-1 ring-gray-300 px-4 py-2 cursor-pointer transition-all hover:bg-tertiary hover:text-white`}>
-                  {size}
-                </span>
-              </div>
+          <label className="block text-lg font-semibold text-tertiary">Available Sizes</label>
+          <div className="flex gap-3 mt-2">
+            {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
+              <span
+                key={size}
+                onClick={() => setSizes(prev => prev.includes(size) ? prev.filter(item => item !== size) : [...prev, size])}
+                className={`px-4 py-2 rounded-md cursor-pointer border ${sizes.includes(size) ? 'bg-secondary text-white' : 'bg-white text-gray-700'} transition hover:bg-secondary hover:text-white`}
+              >
+                {size}
+              </span>
             ))}
           </div>
         </div>
 
-        <div className='flex items-center gap-2 my-4'>
-          <input 
-            type='checkbox' 
-            onChange={(e) => {
-              setPopular(e.target.checked)
-              console.log(e.target.checked)
-            }} 
-            checked={popular} 
-            id='popular' 
+        <div className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            onChange={(e) => setPopular(e.target.checked)}
+            checked={popular}
+            id="popular"
+            className="h-5 w-5 cursor-pointer"
           />
-          <label htmlFor="popular" className='cursor-pointer text-lg'>Add to Popular</label>
+          <label htmlFor="popular" className="text-lg text-tertiary cursor-pointer">Mark as Popular</label>
         </div>
 
-        <button type='submit' className='btn-dark'>Add Product</button>
-      </div>
-    </form>
+        <button
+          type="submit"
+          className="w-full py-3 bg-secondary text-white rounded-lg shadow-md hover:bg-tertiary transition-all text-xl font-semibold"
+        >
+          Add Product
+        </button>
+      </form>
+    </div>
   );
 };
 

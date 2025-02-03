@@ -5,34 +5,34 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Verify = () => {
-  const {navigate,token,setCartItems,backendUrl}=useContext(ShopContext)
-  const[serarchParams,setSearchParams]=useSearchParams()
+  const { navigate, token, setCartItems, backendUrl } = useContext(ShopContext)
+  const [serarchParams, setSearchParams] = useSearchParams()
 
-  const success=serarchParams.get('success')
-  const orderId=serarchParams.get('orderId')
+  const success = serarchParams.get('success')
+  const orderId = serarchParams.get('orderId')
 
-  const verifyPayment=async()=>{
+  const verifyPayment = async () => {
     try {
-      if(!token){
+      if (!token) {
         return null
       }
-      const response=await axios.post(backendUrl+'/api/order/verifyStripe',{success,orderId},{headers:{token}})
-      if(response.data.success){
+      const response = await axios.post(backendUrl + '/api/order/verifyStripe', { success, orderId }, { headers: { token } })
+      if (response.data.success) {
         setCartItems({})
         navigate('/orders')
-      }else{
+      } else {
         navigate('/')
       }
     } catch (error) {
       console.log(error);
       toast.error(error.message)
-      
+
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     verifyPayment()
-  },[token])
+  }, [token])
   return (
     <div>Verify</div>
   )

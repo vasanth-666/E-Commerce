@@ -10,8 +10,8 @@ const Footer = () => {
                         <Link to='/'>
                             <h4 className='bold-24 text-secondary'>Shoping</h4>
                         </Link>
-                        <p className='text-white mt-5'>Crafted with care and dedication. Bringing quality and style right right to your doorstep. Your satisfaction is our Promise!</p>
-                        <p className='mt-4 text-white/70'>Copyright 2024 Shopping. All rights reserved</p>
+                        <p className='text-white mt-5'>Crafted with care and dedication. Bringing quality and style right to your doorstep. Your satisfaction is our Promise!</p>
+                        <p className='mt-4 text-white/70'>Copyright 2025 Shopping. All rights reserved</p>
                     </div>
                     <div>
 

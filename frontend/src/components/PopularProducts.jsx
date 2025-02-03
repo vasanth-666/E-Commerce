@@ -9,19 +9,10 @@ const PopularProducts = () => {
 
   useEffect(() => {
     if (products.length > 0) {
-      console.log('Fetched products:', products);
-      const data = products.filter(item => item.popular === true);  
-
-      console.log('Filtered popular products:', data); 
-
-      setPopularProducts(data.slice(0, 5));  
+      const data = products.filter(item => item.popular === true);
+      setPopularProducts(data.slice(0, 30));
     }
-  }, [products]);  
-
-  
-  if (popularProducts.length === 0) {
-    return <div>No popular products available</div>;
-  }
+  }, [products]);
 
   return (
     <section className='max-padd-container py-16'>

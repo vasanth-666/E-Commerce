@@ -1,14 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logoImg from '../assets/Logo.webp';
 
 const Header = () => {
   return (
-    <header className='flexCenter py-8 bg-white'>
-        <Link to={'/'} className='bold-24 flex absolute -top-6 left-0 right-0 w-full flexCenter'>
-            <h4 className='bg-white shadow-sm text-secondary flexCenter h-28 w-28 px-2 rounded-full'>Shopping</h4>
-        </Link>
+    <header className='flex justify-center items-center py-3 bg-white'>
+      <Link to="/" className='flex justify-center items-center'>
+        <img
+          src={logoImg}
+          alt="Logo"
+          className="h-20 w-20 rounded-full shadow-md" />
+      </Link>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

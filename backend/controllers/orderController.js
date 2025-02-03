@@ -2,8 +2,8 @@ import orderModel from "../models/orderModel.js"
 import userModel from "../models/userModel.js"
 import Stripe from 'stripe'
 
-const currency='INR'
-const deliveryCharges=10
+const currency = 'INR'
+const deliveryCharges = 10
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -49,59 +49,59 @@ const placeOrderStripe = async (req, res) => {
         const newOrder = new orderModel(orderData)
         await newOrder.save()
 
-        const line_items=items.map((item)=>({
-            price_data:{
-                currency:currency,
-                product_data:{
-                    name:item.name
+        const line_items = items.map((item) => ({
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: item.name
                 },
-                unit_amount:item.price*100
+                unit_amount: item.price * 100
             },
-            quantity:item.quantity
+            quantity: item.quantity
         }))
 
         line_items.push({
-            price_data:{
-                currency:currency,
-                product_data:{
-                    name:'Delivery charges'
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: 'Delivery charges'
                 },
-                unit_amount:deliveryCharges*100
+                unit_amount: deliveryCharges * 100
             },
-            quantity:1  
+            quantity: 1
         })
 
-        const session=await stripe.checkout.sessions.create({
-            success_url:`${origin}/verify?success=true&orderId=${newOrder._id}`,
-            cancel_url:`${origin}/verify?success=false&orderId=${newOrder._id}`,
+        const session = await stripe.checkout.sessions.create({
+            success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
             payment_method_types: ['card'],
             line_items,
-            mode:'payment'
+            mode: 'payment'
         })
 
-        res.json({success:true,session_url:session.url})
+        res.json({ success: true, session_url: session.url })
     } catch (error) {
         console.log(error);
-        res.json({success:false,message:error.message})
+        res.json({ success: false, message: error.message })
     }
 }
 
-const verifyStripe=async(req,res)=>{
-    const{orderId,success,userId}=req.body
+const verifyStripe = async (req, res) => {
+    const { orderId, success, userId } = req.body
     try {
-        if(success==="true"){
-            await orderModel.findByIdAndUpdate(orderId,{payment:true})
-            await userModel.findByIdAndUpdate(userId,{cartData:{}})
+        if (success === "true") {
+            await orderModel.findByIdAndUpdate(orderId, { payment: true })
+            await userModel.findByIdAndUpdate(userId, { cartData: {} })
 
-            res.json({success:true})
+            res.json({ success: true })
         }
-        else{
+        else {
             await orderModel.findByIdAndUpdate(orderId)
-            res.json({success:false})
+            res.json({ success: false })
         }
     } catch (error) {
         console.log(error);
-        res.json({success:false,message:error.message})
+        res.json({ success: false, message: error.message })
     }
 }
 
@@ -139,5 +139,5 @@ const updateStatus = async (req, res) => {
     }
 }
 
-export { placeOrder, placeOrderStripe,verifyStripe, allOrders, userOrders, updateStatus }
+export { placeOrder, placeOrderStripe, verifyStripe, allOrders, userOrders, updateStatus }
 

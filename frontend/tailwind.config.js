@@ -7,7 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // primary: "#f5f6f2",
         primary: "#f9f9f9",
         primaryLight: "#e3f7fa",
         secondary: "#43c2d1",
@@ -21,7 +20,7 @@ export default {
         },
       },
       screens: {
-        xs: "400px",
+        "xs": "400px",
         "3xl": "1680px",
         "4xl": "2200px",
       },
@@ -32,4 +31,5 @@ export default {
     },
   },
   plugins: [],
+
 }

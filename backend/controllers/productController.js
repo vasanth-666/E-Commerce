@@ -25,7 +25,7 @@ const addProduct = async (req, res) => {
             price: Number(price),
             category,
             subcategory,
-            popular: popular === true ? true : false,
+            popular: popular === "true" ? true : false,
             sizes: JSON.parse(sizes),
             image: imageUrl,
             date: Date.now()

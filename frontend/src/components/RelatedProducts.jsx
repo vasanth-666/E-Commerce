@@ -15,7 +15,7 @@ const RelatedProducts = ({ category, subCategory }) => {
             filtered = filtered.filter((item) => category === item.category)
             filtered = filtered.filter((item) => subCategory === item.subCategory)
 
-            setRelated(filtered.slice(0.5))
+            setRelated(filtered.slice(0.30))
         }
     }, [products])
 
