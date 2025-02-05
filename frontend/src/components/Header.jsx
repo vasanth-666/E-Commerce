@@ -6,7 +6,7 @@ import { GiBeachBag } from 'react-icons/gi';
 import { TbArrowNarrowRight } from 'react-icons/tb';
 import { FaSearch } from 'react-icons/fa';
 import { ShopContext } from '../context/ShopContext';
-import logoImg from '../assets/logo.webp';
+import logoImg from '../assets/logo.png';
 import '../index.css';
 
 const Header = () => {

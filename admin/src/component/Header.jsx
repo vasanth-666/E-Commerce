@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoImg from '../assets/Logo.webp';
+import logoImg from '../assets/logo.png';
 
 const Header = () => {
   return (
