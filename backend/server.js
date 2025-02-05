@@ -13,7 +13,7 @@ const port = process.env.PORT || 4000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["https://e-commerce-frontend-alpha-three.vercel.app", "https://e-commerce-admin-azure-beta.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
