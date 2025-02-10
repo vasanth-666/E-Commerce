@@ -1,6 +1,5 @@
 import React from 'react'
 import { BsFire } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
